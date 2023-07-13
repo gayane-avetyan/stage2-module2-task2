@@ -13,7 +13,7 @@ import java.io.IOException;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if (request.getSession().getAttribute("user") != null)
+        if (request.getSession().getAttribute("user") == null)
             response.sendRedirect("/login.jsp");
         else
             response.sendRedirect("/user/hello.jsp");
@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
         boolean isCorrectPassword = password != null && !password.trim().isEmpty();
 
         if (isCorrectLogin && isCorrectPassword) {
-            request.getSession().setAttribute("login", "user");
+            request.getSession().setAttribute("user", "login");
             response.sendRedirect(" /user/hello.jsp");
         } else {
             request.getRequestDispatcher("/login.jsp").forward(request, response);
